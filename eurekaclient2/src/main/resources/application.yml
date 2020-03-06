@@ -1,0 +1,34 @@
+
+spring:
+  profiles.active: zone2
+  application:
+    name: zuul-proxy
+
+server:
+  port: 9090
+
+eureka:
+  client:
+    registerWithEureka: true
+    fetchRegistry: true
+    region: region-1
+    serviceUrl:
+      zone1: http://eureka-server1:8761/eureka/
+      zone2: http://eureka-server2:8762/eureka/
+    availability-zones:
+      region-1: zone1,zone2
+    instance:
+      hostname: localhost
+
+zuul:
+  ignoredServices: '*'
+  routes:
+    admin-service:
+      path: /api/customers/**
+      serviceId: admin-service
+      stripPrefix: false
+  host:
+    socket-timeout-millis: 30000
+  # ribbon:
+  #   eureka:
+  #     enabled: true
