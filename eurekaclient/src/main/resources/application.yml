@@ -1,0 +1,21 @@
+
+spring:
+  profiles.active: zone1
+  application:
+    name: admin-service
+
+server:
+  port: 8080
+
+eureka:
+  client:
+    registerWithEureka: true
+    fetchRegistry: true
+    region: region-1
+    serviceUrl:
+      zone1: http://eureka-server1:8761/eureka/
+      zone2: http://eureka-server2:8762/eureka/
+    availability-zones:
+      region-1: zone1,zone2
+    instance:
+      hostname: localhost
